@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -31,10 +33,13 @@ internal fun DayTabItem(
     error: NetworkError?,
 ) {
     if (dayEntity != null) {
+        val scrollState = rememberScrollState()
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Top),
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier
+                .verticalScroll(scrollState)
+                .padding(16.dp),
         ) {
             if (dayEntity.classes.isNotEmpty()) {
                 dayEntity.classes.forEach { klass ->
