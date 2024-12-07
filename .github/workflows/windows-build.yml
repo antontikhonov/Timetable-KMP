@@ -1,0 +1,57 @@
+name: Windows Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 60
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Install WiX Toolset
+        shell: powershell
+        run: |
+          $wixToolsetUrl = "https://github.com/wixtoolset/wix3/releases/download/wix3112rtm/wix311.exe"
+          Invoke-WebRequest -Uri $wixToolsetUrl -OutFile wix311.exe
+          Start-Process -FilePath ".\wix311.exe" -ArgumentList "/install","/quiet" -Wait
+
+      - name: Build with Gradle
+        shell: bash
+        run: |
+          ./gradlew --info --stacktrace packageMsi
+
+      - name: List build directory
+        shell: bash
+        run: |
+          echo "Listing MSI directory content:"
+          ls -la "$GITHUB_WORKSPACE/composeApp/build/compose/binaries/main/msi/"
+
+      - name: Upload MSI artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: timetable-installer
+          path: ${{ github.workspace }}/composeApp/build/compose/binaries/main/msi/*.msi
+          if-no-files-found: error
+
+      - name: Upload build logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-build-logs
+          path: |
+            ${{ github.workspace }}/composeApp/build/compose/logs/
+            ${{ github.workspace }}/composeApp/build/reports/
+          if-no-files-found: warn
