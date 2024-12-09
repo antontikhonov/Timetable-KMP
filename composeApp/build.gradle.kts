@@ -141,7 +141,7 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "ru.antontikhonov.timetable_kmp"
+            packageName = "timetable"
             packageVersion = "1.0.0"
         }
     }
