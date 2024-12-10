@@ -1,7 +1,10 @@
 package ru.antontikhonov.timetable_kmp.presentation
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.Tab
@@ -74,25 +77,31 @@ internal fun TimetableScreen(client: TimetableClient) {
     }
 
     Column {
-        TabRow(
-            selectedTabIndex = selectedTabIndex,
-            backgroundColor = Colors.DARK_BLACK_TRANSPARENT,
-            contentColor = Color.White,
+        Box(
+            modifier = Modifier
+                .background(Colors.DARK_BLACK_TRANSPARENT)
+                .statusBarsPadding(),
         ) {
-            tabItems.forEachIndexed { index, title ->
-                Tab(
-                    selected = selectedTabIndex == index,
-                    onClick = {
-                        selectedTabIndex = index
-                    },
-                    text = {
-                        Text(
-                            text = title,
-                            fontSize = 12.sp,
-                            color = if (selectedTabIndex == index) Colors.DIRTY_YELLOW else Color.White,
-                        )
-                    }
-                )
+            TabRow(
+                selectedTabIndex = selectedTabIndex,
+                backgroundColor = Color.Transparent,
+                contentColor = Color.White,
+            ) {
+                tabItems.forEachIndexed { index, title ->
+                    Tab(
+                        selected = selectedTabIndex == index,
+                        onClick = {
+                            selectedTabIndex = index
+                        },
+                        text = {
+                            Text(
+                                text = title,
+                                fontSize = 12.sp,
+                                color = if (selectedTabIndex == index) Colors.DIRTY_YELLOW else Color.White,
+                            )
+                        }
+                    )
+                }
             }
         }
 
