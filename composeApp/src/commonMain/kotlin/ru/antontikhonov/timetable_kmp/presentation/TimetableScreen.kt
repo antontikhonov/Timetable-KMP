@@ -13,14 +13,15 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import ru.antontikhonov.timetable_kmp.networking.TimetableClient
 import ru.antontikhonov.timetable_kmp.networking.entities.TimetableEntity
@@ -41,6 +42,7 @@ internal fun TimetableScreen(client: TimetableClient) {
     var timetableEntity by remember { mutableStateOf<TimetableEntity?>(null) }
     var isLoading by remember { mutableStateOf(false) }
     var error by remember { mutableStateOf<NetworkError?>(null) }
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) {
         isLoading = true
@@ -51,8 +53,6 @@ internal fun TimetableScreen(client: TimetableClient) {
         isLoading = false
     }
 
-    var selectedTabIndex by remember { mutableIntStateOf(0) }
-
     val tabItems = listOf(
         stringResource(Res.string.monday),
         stringResource(Res.string.tuesday),
@@ -62,19 +62,7 @@ internal fun TimetableScreen(client: TimetableClient) {
         stringResource(Res.string.saturday),
     )
 
-    val pagerState = rememberPagerState {
-        tabItems.size
-    }
-
-    LaunchedEffect(selectedTabIndex) {
-        pagerState.animateScrollToPage(selectedTabIndex)
-    }
-
-    LaunchedEffect(pagerState.currentPage, pagerState.isScrollInProgress) {
-        if(!pagerState.isScrollInProgress) {
-            selectedTabIndex = pagerState.currentPage
-        }
-    }
+    val pagerState = rememberPagerState { tabItems.size }
 
     Column {
         Box(
@@ -83,21 +71,27 @@ internal fun TimetableScreen(client: TimetableClient) {
                 .statusBarsPadding(),
         ) {
             TabRow(
-                selectedTabIndex = selectedTabIndex,
+                selectedTabIndex = pagerState.currentPage,
                 backgroundColor = Color.Transparent,
                 contentColor = Color.White,
             ) {
                 tabItems.forEachIndexed { index, title ->
                     Tab(
-                        selected = selectedTabIndex == index,
+                        selected = pagerState.currentPage == index,
                         onClick = {
-                            selectedTabIndex = index
+                            scope.launch {
+                                pagerState.animateScrollToPage(index)
+                            }
                         },
                         text = {
                             Text(
                                 text = title,
                                 fontSize = 12.sp,
-                                color = if (selectedTabIndex == index) Colors.DIRTY_YELLOW else Color.White,
+                                color = if (pagerState.currentPage == index) {
+                                    Colors.DIRTY_YELLOW
+                                } else {
+                                    Color.White
+                                },
                             )
                         }
                     )
