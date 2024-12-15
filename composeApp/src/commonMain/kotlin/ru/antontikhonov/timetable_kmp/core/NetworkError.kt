@@ -1,4 +1,4 @@
-package ru.antontikhonov.timetable_kmp.util
+package ru.antontikhonov.timetable_kmp.core
 
 enum class NetworkError : Error {
     REQUEST_TIMEOUT,
@@ -7,7 +7,7 @@ enum class NetworkError : Error {
     TOO_MANY_REQUESTS,
     NO_INTERNET,
     PAYLOAD_TOO_LARGE,
-    SERVER_ERROR,
+    SERVER,
     SERIALIZATION,
     UNKNOWN;
 }

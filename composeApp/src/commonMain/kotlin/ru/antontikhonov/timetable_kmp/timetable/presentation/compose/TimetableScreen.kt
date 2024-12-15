@@ -1,35 +1,37 @@
-package ru.antontikhonov.timetable_kmp.presentation
+package ru.antontikhonov.timetable_kmp.timetable.presentation.compose
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
-import ru.antontikhonov.timetable_kmp.networking.TimetableClient
-import ru.antontikhonov.timetable_kmp.networking.entities.TimetableEntity
 import ru.antontikhonov.timetable_kmp.resources.Colors
-import ru.antontikhonov.timetable_kmp.util.NetworkError
-import ru.antontikhonov.timetable_kmp.util.onError
-import ru.antontikhonov.timetable_kmp.util.onSuccess
+import ru.antontikhonov.timetable_kmp.timetable.presentation.TimetableState
+import ru.antontikhonov.timetable_kmp.timetable.presentation.TimetableViewModel
 import timetable_kmp.composeapp.generated.resources.Res
+import timetable_kmp.composeapp.generated.resources.error_message
 import timetable_kmp.composeapp.generated.resources.friday
 import timetable_kmp.composeapp.generated.resources.monday
 import timetable_kmp.composeapp.generated.resources.saturday
@@ -38,20 +40,16 @@ import timetable_kmp.composeapp.generated.resources.tuesday
 import timetable_kmp.composeapp.generated.resources.wednesday
 
 @Composable
-internal fun TimetableScreen(client: TimetableClient) {
-    var timetableEntity by remember { mutableStateOf<TimetableEntity?>(null) }
-    var isLoading by remember { mutableStateOf(false) }
-    var error by remember { mutableStateOf<NetworkError?>(null) }
-    val scope = rememberCoroutineScope()
+fun TimetableScreenRoot(
+    viewModel: TimetableViewModel,
+) {
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    TimetableScreen(state)
+}
 
-    LaunchedEffect(Unit) {
-        isLoading = true
-        error = null
-        client.getTimetable()
-            .onSuccess { timetableEntity = it }
-            .onError { error = it }
-        isLoading = false
-    }
+@Composable
+internal fun TimetableScreen(state: TimetableState) {
+    val scope = rememberCoroutineScope()
 
     val tabItems = listOf(
         stringResource(Res.string.monday),
@@ -105,11 +103,27 @@ internal fun TimetableScreen(client: TimetableClient) {
             beyondViewportPageCount = 1,
             verticalAlignment = Alignment.Top,
         ) { page ->
-            DayTabItem(
-                dayEntity = timetableEntity?.days?.get(page),
-                isLoading = isLoading,
-                error = error,
-            )
+            if (state.isLoading) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(25.dp),
+                    strokeWidth = 2.dp,
+                    color = Color.White,
+                )
+            } else if (state.errorMessage != null) {
+                Text(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(25.dp))
+                        .background(Colors.DARK_BLACK_TRANSPARENT)
+                        .padding(16.dp),
+                    text = stringResource(Res.string.error_message, state.errorMessage.name),
+                    color = Color.Red,
+                    textAlign = TextAlign.Center,
+                )
+            } else {
+                DayTabItem(
+                    dayEntity = state.days.getOrNull(page),
+                )
+            }
         }
     }
 }
