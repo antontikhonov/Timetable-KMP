@@ -1,4 +1,4 @@
-package ru.antontikhonov.timetable_kmp.presentation
+package ru.antontikhonov.timetable_kmp.timetable.presentation.compose
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,7 +21,6 @@ internal fun NoLessonsTile() {
     Text(
         modifier = Modifier
             .fillMaxWidth()
-//            .padding(start = 16.dp, end = 16.dp)
             .clip(RoundedCornerShape(25.dp))
             .background(color = Colors.DARK_BLACK_TRANSPARENT)
             .padding(16.dp),

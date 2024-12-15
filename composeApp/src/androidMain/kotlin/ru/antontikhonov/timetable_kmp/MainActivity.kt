@@ -7,9 +7,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.remember
 import io.ktor.client.engine.okhttp.OkHttp
-import ru.antontikhonov.timetable_kmp.networking.TimetableClient
-import ru.antontikhonov.timetable_kmp.networking.createHttpClient
-import ru.antontikhonov.timetable_kmp.presentation.App
 import ru.antontikhonov.timetable_kmp.resources.Colors
 
 class MainActivity : ComponentActivity() {
@@ -23,11 +20,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            App(
-                client = remember {
-                    TimetableClient(createHttpClient(OkHttp.create()))
-                }
-            )
+            App(httpEngine = remember { OkHttp.create() })
         }
     }
 }

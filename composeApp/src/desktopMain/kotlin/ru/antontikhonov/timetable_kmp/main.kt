@@ -6,9 +6,6 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import io.ktor.client.engine.okhttp.OkHttp
-import ru.antontikhonov.timetable_kmp.networking.TimetableClient
-import ru.antontikhonov.timetable_kmp.networking.createHttpClient
-import ru.antontikhonov.timetable_kmp.presentation.App
 
 fun main() = application {
     Window(
@@ -19,10 +16,6 @@ fun main() = application {
             height = 720.dp,
         )
     ) {
-        App(
-            client = remember {
-                TimetableClient(createHttpClient(OkHttp.create()))
-            }
-        )
+        App(httpEngine = remember { OkHttp.create() })
     }
 }
