@@ -1,8 +1,12 @@
 package ru.antontikhonov.timetable_kmp
 
 import androidx.compose.ui.window.ComposeUIViewController
-import io.ktor.client.engine.darwin.Darwin
+import ru.antontikhonov.timetable_kmp.di.initKoin
 
-fun MainViewController() = ComposeUIViewController {
-    App(httpEngine = Darwin.create())
+fun MainViewController() = ComposeUIViewController(
+    configure = {
+        initKoin()
+    }
+) {
+    App()
 }

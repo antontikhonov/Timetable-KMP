@@ -5,8 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.runtime.remember
-import io.ktor.client.engine.okhttp.OkHttp
 import ru.antontikhonov.timetable_kmp.resources.Colors
 
 class MainActivity : ComponentActivity() {
@@ -20,7 +18,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            App(httpEngine = remember { OkHttp.create() })
+            App()
         }
     }
 }

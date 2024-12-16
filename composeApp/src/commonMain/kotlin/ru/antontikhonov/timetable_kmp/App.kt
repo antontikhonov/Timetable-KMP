@@ -7,18 +7,15 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import io.ktor.client.engine.HttpClientEngine
 import org.jetbrains.compose.resources.painterResource
-import ru.antontikhonov.timetable_kmp.core.data.HttpClientFactory
-import ru.antontikhonov.timetable_kmp.timetable.data.api.KtorTimetableApiService
-import ru.antontikhonov.timetable_kmp.timetable.data.repository.TimetableRepositoryImpl
+import org.koin.compose.viewmodel.koinViewModel
 import ru.antontikhonov.timetable_kmp.timetable.presentation.TimetableViewModel
 import ru.antontikhonov.timetable_kmp.timetable.presentation.compose.TimetableScreenRoot
 import timetable_kmp.composeapp.generated.resources.Res
 import timetable_kmp.composeapp.generated.resources.alina
 
 @Composable
-fun App(httpEngine: HttpClientEngine) {
+fun App() {
     MaterialTheme {
         Box(modifier = Modifier.fillMaxSize()) {
             Image(
@@ -28,13 +25,7 @@ fun App(httpEngine: HttpClientEngine) {
                 modifier = Modifier.matchParentSize(),
             )
             TimetableScreenRoot(
-                viewModel = TimetableViewModel(
-                    timetableRepository = TimetableRepositoryImpl(
-                        apiService = KtorTimetableApiService(
-                            httpClient = HttpClientFactory.create(httpEngine),
-                        )
-                    )
-                )
+                viewModel = koinViewModel<TimetableViewModel>()
             )
         }
     }
