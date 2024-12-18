@@ -2,10 +2,10 @@
 <resources>
 <!--    <string name="app_name">Univer</string>-->
 
-<!--    <string name="timetable">Расписание</string>-->
+    <string name="timetable">Расписание</string>
 <!--    <string name="map">Окрестности</string>-->
 <!--    <string name="news">Новости</string>-->
-<!--    <string name="settings">Настройки</string>-->
+    <string name="settings">Настройки</string>
 
 <!--    <string name="odd_week">неделя над чертой</string>-->
 <!--    <string name="even_week">неделя под чертой</string>-->

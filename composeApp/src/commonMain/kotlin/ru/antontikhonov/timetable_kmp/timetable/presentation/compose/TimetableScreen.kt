@@ -63,37 +63,34 @@ internal fun TimetableScreen(state: TimetableState) {
     val pagerState = rememberPagerState { tabItems.size }
 
     Column {
-        Box(
+        TabRow(
+            selectedTabIndex = pagerState.currentPage,
+            backgroundColor = Color.Transparent,
+            contentColor = Color.White,
             modifier = Modifier
                 .background(Colors.DARK_BLACK_TRANSPARENT)
                 .statusBarsPadding(),
         ) {
-            TabRow(
-                selectedTabIndex = pagerState.currentPage,
-                backgroundColor = Color.Transparent,
-                contentColor = Color.White,
-            ) {
-                tabItems.forEachIndexed { index, title ->
-                    Tab(
-                        selected = pagerState.currentPage == index,
-                        onClick = {
-                            scope.launch {
-                                pagerState.animateScrollToPage(index)
-                            }
-                        },
-                        text = {
-                            Text(
-                                text = title,
-                                fontSize = 12.sp,
-                                color = if (pagerState.currentPage == index) {
-                                    Colors.DIRTY_YELLOW
-                                } else {
-                                    Color.White
-                                },
-                            )
+            tabItems.forEachIndexed { index, title ->
+                Tab(
+                    selected = pagerState.currentPage == index,
+                    onClick = {
+                        scope.launch {
+                            pagerState.animateScrollToPage(index)
                         }
-                    )
-                }
+                    },
+                    text = {
+                        Text(
+                            text = title,
+                            fontSize = 12.sp,
+                            color = if (pagerState.currentPage == index) {
+                                Colors.DIRTY_YELLOW
+                            } else {
+                                Color.White
+                            },
+                        )
+                    }
+                )
             }
         }
 
@@ -104,21 +101,31 @@ internal fun TimetableScreen(state: TimetableState) {
             verticalAlignment = Alignment.Top,
         ) { page ->
             if (state.isLoading) {
-                CircularProgressIndicator(
-                    modifier = Modifier.size(25.dp),
-                    strokeWidth = 2.dp,
-                    color = Color.White,
-                )
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(25.dp),
+                        strokeWidth = 2.dp,
+                        color = Color.White,
+                    )
+                }
             } else if (state.errorMessage != null) {
-                Text(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(25.dp))
-                        .background(Colors.DARK_BLACK_TRANSPARENT)
-                        .padding(16.dp),
-                    text = stringResource(Res.string.error_message, state.errorMessage.name),
-                    color = Color.Red,
-                    textAlign = TextAlign.Center,
-                )
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Text(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(25.dp))
+                            .background(Colors.BLACK_TRANSPARENT)
+                            .padding(16.dp),
+                        text = stringResource(Res.string.error_message, state.errorMessage.name),
+                        color = Color.Red,
+                        textAlign = TextAlign.Center,
+                    )
+                }
             } else {
                 DayTabItem(
                     dayEntity = state.days.getOrNull(page),
