@@ -16,8 +16,8 @@
     <string name="thursday">ЧТ</string>
     <string name="friday">ПТ</string>
     <string name="saturday">СБ</string>
-<!--    <string name="choice_group_button">Выбор группы</string>-->
-<!--    <string name="choice_theme_button">Выбор фона</string>-->
+    <string name="choice_group_button">Выбор группы</string>
+    <string name="choice_theme_button">Выбор фона</string>
 
 <!--    <string name="theme_changed_toast_message">Фон изменён на %1$s</string>-->
 <!--    <string name="group_changed_toast_message">Группа изменена на %1$s</string>-->
