@@ -22,7 +22,7 @@ internal fun NoLessonsTile() {
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(25.dp))
-            .background(color = Colors.DARK_BLACK_TRANSPARENT)
+            .background(color = Colors.BLACK_TRANSPARENT)
             .padding(16.dp),
         text = stringResource(Res.string.no_classes),
         color = Color.White,

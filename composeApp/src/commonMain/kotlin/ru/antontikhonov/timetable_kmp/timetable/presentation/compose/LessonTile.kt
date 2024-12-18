@@ -26,8 +26,9 @@ internal fun LessonTile(
 ) {
     Row(
         modifier = Modifier
+            .fillMaxWidth()
             .clip(RoundedCornerShape(25.dp))
-            .background(color = Colors.DARK_BLACK_TRANSPARENT)
+            .background(color = Colors.BLACK_TRANSPARENT)
             .padding(8.dp)
     ) {
         Text(
