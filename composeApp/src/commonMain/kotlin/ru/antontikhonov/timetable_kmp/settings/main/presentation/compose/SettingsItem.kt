@@ -1,6 +1,7 @@
-package ru.antontikhonov.timetable_kmp.settings.presentation.compose
+package ru.antontikhonov.timetable_kmp.settings.main.presentation.compose
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -21,13 +22,17 @@ internal fun SettingsItem(
     iconResource: DrawableResource,
     text: String,
     modifier: Modifier = Modifier,
+    onClick: () -> Unit = { },
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(25.dp))
             .background(color = Colors.BLACK_TRANSPARENT)
-            .padding(vertical = 16.dp, horizontal = 36.dp),
+            .padding(vertical = 16.dp, horizontal = 36.dp)
+            .clickable {
+                onClick()
+            },
     ) {
         Icon(
             painter = painterResource(iconResource),

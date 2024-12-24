@@ -11,5 +11,8 @@ sealed interface Route {
     data object Timetable: Route
 
     @Serializable
-    data object Settings: Route
+    data object MainSettings: Route
+
+    @Serializable
+    data object GroupSettings: Route
 }

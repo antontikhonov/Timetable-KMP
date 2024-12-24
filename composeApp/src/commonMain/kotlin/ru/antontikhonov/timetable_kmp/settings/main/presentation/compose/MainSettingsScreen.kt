@@ -1,4 +1,4 @@
-package ru.antontikhonov.timetable_kmp.settings.presentation.compose
+package ru.antontikhonov.timetable_kmp.settings.main.presentation.compose
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -20,7 +20,9 @@ import timetable_kmp.composeapp.generated.resources.ic_wallpaper
 import timetable_kmp.composeapp.generated.resources.settings
 
 @Composable
-internal fun SettingScreenRoot() {
+internal fun MainSettingScreenRoot(
+    onChangeGroupClick: () -> Unit,
+) {
     Column {
         Text(
             modifier = Modifier
@@ -34,12 +36,13 @@ internal fun SettingScreenRoot() {
         SettingsItem(
             iconResource = Res.drawable.ic_view_list,
             text = stringResource(Res.string.choice_group_button),
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(16.dp),
+            onClick = onChangeGroupClick,
         )
         SettingsItem(
             iconResource = Res.drawable.ic_wallpaper,
             text = stringResource(Res.string.choice_theme_button),
-            modifier = Modifier.padding(horizontal = 16.dp)
+            modifier = Modifier.padding(horizontal = 16.dp),
         )
     }
 }

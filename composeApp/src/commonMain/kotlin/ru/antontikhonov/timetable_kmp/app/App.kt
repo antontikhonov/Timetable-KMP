@@ -30,7 +30,9 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import ru.antontikhonov.timetable_kmp.resources.Colors
-import ru.antontikhonov.timetable_kmp.settings.presentation.compose.SettingScreenRoot
+import ru.antontikhonov.timetable_kmp.settings.group.presentation.GroupSettingsViewModel
+import ru.antontikhonov.timetable_kmp.settings.group.presentation.compose.GroupSettingScreenRoot
+import ru.antontikhonov.timetable_kmp.settings.main.presentation.compose.MainSettingScreenRoot
 import ru.antontikhonov.timetable_kmp.timetable.presentation.TimetableViewModel
 import ru.antontikhonov.timetable_kmp.timetable.presentation.compose.TimetableScreenRoot
 import timetable_kmp.composeapp.generated.resources.Res
@@ -69,7 +71,7 @@ fun App() {
                         icon = Icons.Default.Settings,
                         onClick = {
                             selectedTab = 1
-                            navController.navigate(Route.Settings)
+                            navController.navigate(Route.MainSettings)
                         },
                     )
                 }
@@ -99,8 +101,20 @@ fun App() {
                                     viewModel = koinViewModel<TimetableViewModel>()
                                 )
                             }
-                            composable<Route.Settings> {
-                                SettingScreenRoot()
+                            composable<Route.MainSettings> {
+                                MainSettingScreenRoot(
+                                    onChangeGroupClick = {
+                                        navController.navigate(Route.GroupSettings)
+                                    }
+                                )
+                            }
+                            composable<Route.GroupSettings> {
+                                GroupSettingScreenRoot(
+                                    viewModel = koinViewModel<GroupSettingsViewModel>(),
+                                    onBackClick = {
+                                        navController.popBackStack()
+                                    },
+                                )
                             }
                         }
                     }

@@ -23,7 +23,7 @@
 <!--    <string name="group_changed_toast_message">Группа изменена на %1$s</string>-->
 
     <string name="no_classes">Занятий нет</string>
-<!--    <string name="search_hint">Найди свою группу</string>-->
+    <string name="search_hint">Найди свою группу</string>
     <string name="error_message">Ошибка: %1$s</string>
 
 <!--    <string name="positive_answer_dialog">Окей</string>-->

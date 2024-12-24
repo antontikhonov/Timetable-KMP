@@ -23,7 +23,7 @@
 <!--    <string name="group_changed_toast_message">Group was changed to %1$s</string>-->
 
     <string name="no_classes">No lessons</string>
-<!--    <string name="search_hint">Search your group</string>-->
+    <string name="search_hint">Search your group</string>
     <string name="error_message">Error: %1$s</string>
 
 <!--    <string name="positive_answer_dialog">Okay</string>-->

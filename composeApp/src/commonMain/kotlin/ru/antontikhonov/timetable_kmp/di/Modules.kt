@@ -11,6 +11,7 @@ import ru.antontikhonov.timetable_kmp.timetable.data.api.KtorTimetableApiService
 import ru.antontikhonov.timetable_kmp.timetable.domain.TimetableRepository
 import ru.antontikhonov.timetable_kmp.timetable.data.repository.TimetableRepositoryImpl
 import ru.antontikhonov.timetable_kmp.timetable.presentation.TimetableViewModel
+import ru.antontikhonov.timetable_kmp.settings.group.presentation.GroupSettingsViewModel
 
 expect val platformModule: Module
 
@@ -20,4 +21,5 @@ val sharedModule = module {
     singleOf(::TimetableRepositoryImpl).bind<TimetableRepository>()
 
     viewModelOf(::TimetableViewModel)
+    viewModelOf(::GroupSettingsViewModel)
 }
