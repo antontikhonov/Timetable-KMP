@@ -29,10 +29,9 @@ internal fun SettingsItem(
             .fillMaxWidth()
             .clip(RoundedCornerShape(25.dp))
             .background(color = Colors.BLACK_TRANSPARENT)
-            .padding(vertical = 16.dp, horizontal = 36.dp)
-            .clickable {
-                onClick()
-            },
+            .clickable { onClick() }
+            .padding(vertical = 16.dp, horizontal = 36.dp),
+
     ) {
         Icon(
             painter = painterResource(iconResource),
