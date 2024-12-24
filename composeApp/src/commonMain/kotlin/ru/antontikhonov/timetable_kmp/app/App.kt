@@ -1,4 +1,4 @@
-package ru.antontikhonov.timetable_kmp
+package ru.antontikhonov.timetable_kmp.app
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -22,10 +22,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigation
+import androidx.navigation.compose.rememberNavController
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import ru.antontikhonov.timetable_kmp.resources.Colors
+import ru.antontikhonov.timetable_kmp.settings.group.presentation.GroupSettingsViewModel
+import ru.antontikhonov.timetable_kmp.settings.group.presentation.compose.GroupSettingScreenRoot
+import ru.antontikhonov.timetable_kmp.settings.main.presentation.compose.MainSettingScreenRoot
 import ru.antontikhonov.timetable_kmp.timetable.presentation.TimetableViewModel
 import ru.antontikhonov.timetable_kmp.timetable.presentation.compose.TimetableScreenRoot
 import timetable_kmp.composeapp.generated.resources.Res
@@ -36,6 +43,7 @@ import timetable_kmp.composeapp.generated.resources.timetable
 @Composable
 fun App() {
     var selectedTab by remember { mutableStateOf(0) }
+    val navController = rememberNavController()
     MaterialTheme {
         Scaffold(
             backgroundColor = Color.Transparent,
@@ -52,13 +60,19 @@ fun App() {
                         selected = selectedTab == 0,
                         labelText = stringResource(Res.string.timetable),
                         icon = Icons.AutoMirrored.Filled.List,
-                        onClick = { selectedTab = 0 },
+                        onClick = {
+                            selectedTab = 0
+                            navController.navigate(Route.Timetable)
+                        },
                     )
                     TimetableBottomNavigationItem(
                         selected = selectedTab == 1,
                         labelText = stringResource(Res.string.settings),
                         icon = Icons.Default.Settings,
-                        onClick = { selectedTab = 1 },
+                        onClick = {
+                            selectedTab = 1
+                            navController.navigate(Route.MainSettings)
+                        },
                     )
                 }
             }
@@ -75,9 +89,35 @@ fun App() {
                         .fillMaxSize()
                         .padding(paddingValues),
                 ) {
-                    TimetableScreenRoot(
-                        viewModel = koinViewModel<TimetableViewModel>()
-                    )
+                    NavHost(
+                        navController = navController,
+                        startDestination = Route.TimetableGraph,
+                    ) {
+                        navigation<Route.TimetableGraph>(
+                            startDestination = Route.Timetable,
+                        ) {
+                            composable<Route.Timetable> {
+                                TimetableScreenRoot(
+                                    viewModel = koinViewModel<TimetableViewModel>()
+                                )
+                            }
+                            composable<Route.MainSettings> {
+                                MainSettingScreenRoot(
+                                    onChangeGroupClick = {
+                                        navController.navigate(Route.GroupSettings)
+                                    }
+                                )
+                            }
+                            composable<Route.GroupSettings> {
+                                GroupSettingScreenRoot(
+                                    viewModel = koinViewModel<GroupSettingsViewModel>(),
+                                    onBackClick = {
+                                        navController.popBackStack()
+                                    },
+                                )
+                            }
+                        }
+                    }
                 }
             }
         }

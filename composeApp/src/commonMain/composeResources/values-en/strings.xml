@@ -2,10 +2,10 @@
 <resources>
 <!--    <string name="app_name">Univer</string>-->
 
-<!--    <string name="timetable">Timetable</string>-->
+    <string name="timetable">Timetable</string>
 <!--    <string name="map">Neighborhood</string>-->
 <!--    <string name="news">News</string>-->
-<!--    <string name="settings">Settings</string>-->
+    <string name="settings">Settings</string>
 
 <!--    <string name="odd_week">week on the line</string>-->
 <!--    <string name="even_week">week under the line</string>-->
@@ -16,14 +16,14 @@
     <string name="thursday">THU</string>
     <string name="friday">FRI</string>
     <string name="saturday">SAT</string>
-<!--    <string name="choice_group_button">Change group</string>-->
-<!--    <string name="choice_theme_button">Change wallpaper</string>-->
+    <string name="choice_group_button">Change group</string>
+    <string name="choice_theme_button">Change wallpaper</string>
 
 <!--    <string name="theme_changed_toast_message">Wallpaper was changed to %1$s</string>-->
 <!--    <string name="group_changed_toast_message">Group was changed to %1$s</string>-->
 
     <string name="no_classes">No lessons</string>
-<!--    <string name="search_hint">Search your group</string>-->
+    <string name="search_hint">Search your group</string>
     <string name="error_message">Error: %1$s</string>
 
 <!--    <string name="positive_answer_dialog">Okay</string>-->

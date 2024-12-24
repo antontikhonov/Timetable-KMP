@@ -1,4 +1,4 @@
-package ru.antontikhonov.timetable_kmp
+package ru.antontikhonov.timetable_kmp.app
 
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource

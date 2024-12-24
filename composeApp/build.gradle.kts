@@ -89,6 +89,8 @@ kotlin {
             implementation(libs.koin.core)
 
             implementation(libs.bundles.ktor)
+
+            implementation(libs.jetbrains.compose.navigation)
         }
         nativeMain.dependencies {
             implementation(libs.ktor.client.darwin)
