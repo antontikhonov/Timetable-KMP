@@ -2,6 +2,7 @@ package ru.antontikhonov.timetable_kmp.settings.group.presentation.compose
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -171,6 +172,9 @@ private fun GroupSettingScreenRoot(
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(25.dp))
                         .background(Colors.BLACK_TRANSPARENT)
+                        .clickable {
+                            onAction(GroupSettingsAction.OnGroupSelect(group))
+                        }
                         .padding(16.dp),
                     color = Color.White,
                     text = group

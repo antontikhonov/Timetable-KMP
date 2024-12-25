@@ -91,6 +91,8 @@ kotlin {
             implementation(libs.bundles.ktor)
 
             implementation(libs.jetbrains.compose.navigation)
+
+            implementation(libs.multiplatform.settings)
         }
         nativeMain.dependencies {
             implementation(libs.ktor.client.darwin)

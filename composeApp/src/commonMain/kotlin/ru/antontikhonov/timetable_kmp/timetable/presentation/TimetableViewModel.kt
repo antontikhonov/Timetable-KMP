@@ -9,28 +9,38 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import ru.antontikhonov.timetable_kmp.core.onError
 import ru.antontikhonov.timetable_kmp.core.onSuccess
+import ru.antontikhonov.timetable_kmp.timetable.domain.GroupSettingsRepository
 import ru.antontikhonov.timetable_kmp.timetable.domain.TimetableRepository
 
 class TimetableViewModel(
-    private val timetableRepository: TimetableRepository
+    private val timetableRepository: TimetableRepository,
+    private val groupSettingsRepository: GroupSettingsRepository,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(TimetableState())
     val state = _state
         .onStart {
-            loadTimetable()
+            val group = loadGroup()
+            loadTimetable(group)
         }.stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5000L),
             _state.value,
         )
 
-    private suspend fun loadTimetable() {
-        timetableRepository.getTimetable(groupNumber = "М23-504-1")
+    private fun loadGroup(): String {
+        val group = groupSettingsRepository.getGroupSettings()
+        _state.update {
+            it.copy(numberOfGroup = group)
+        }
+        return group
+    }
+
+    private suspend fun loadTimetable(group: String) {
+        timetableRepository.getTimetable(groupNumber = group)
             .onSuccess { timetableResult ->
                 _state.update {
                     it.copy(
-                        numberOfGroup = timetableResult.numberOfGroup,
                         days = timetableResult.days,
                         isLoading = false,
                         errorMessage = null,
