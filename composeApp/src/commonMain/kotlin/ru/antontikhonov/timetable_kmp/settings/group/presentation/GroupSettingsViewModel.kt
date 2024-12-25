@@ -10,10 +10,12 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import ru.antontikhonov.timetable_kmp.core.onError
 import ru.antontikhonov.timetable_kmp.core.onSuccess
+import ru.antontikhonov.timetable_kmp.timetable.domain.GroupSettingsRepository
 import ru.antontikhonov.timetable_kmp.timetable.domain.GroupsRepository
 
 class GroupSettingsViewModel(
     private val groupsRepository: GroupsRepository,
+    private val groupSettingsRepository: GroupSettingsRepository,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(GroupSettingsState())
@@ -43,6 +45,9 @@ class GroupSettingsViewModel(
                         filteredGroups = filteredGroups,
                     )
                 }
+            }
+            is GroupSettingsAction.OnGroupSelect -> {
+                groupSettingsRepository.putGroupSettings(action.group)
             }
         }
     }

@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -63,13 +64,22 @@ internal fun TimetableScreen(state: TimetableState) {
     val pagerState = rememberPagerState { tabItems.size }
 
     Column {
+        Text(
+            text = state.numberOfGroup,
+            color = Color.White,
+            fontSize = 20.sp,
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Colors.DARK_BLACK_TRANSPARENT)
+                .statusBarsPadding()
+                .padding(start = 16.dp, top = 8.dp),
+        )
         TabRow(
             selectedTabIndex = pagerState.currentPage,
             backgroundColor = Color.Transparent,
             contentColor = Color.White,
             modifier = Modifier
-                .background(Colors.DARK_BLACK_TRANSPARENT)
-                .statusBarsPadding(),
+                .background(Colors.DARK_BLACK_TRANSPARENT),
         ) {
             tabItems.forEachIndexed { index, title ->
                 Tab(
