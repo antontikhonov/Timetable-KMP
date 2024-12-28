@@ -7,16 +7,16 @@ import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import ru.antontikhonov.timetable_kmp.core.data.HttpClientFactory
-import ru.antontikhonov.timetable_kmp.timetable.data.api.TimetableApiService
-import ru.antontikhonov.timetable_kmp.timetable.data.api.KtorTimetableApiService
-import ru.antontikhonov.timetable_kmp.timetable.domain.TimetableRepository
-import ru.antontikhonov.timetable_kmp.timetable.data.repository.TimetableRepositoryImpl
-import ru.antontikhonov.timetable_kmp.timetable.presentation.TimetableViewModel
-import ru.antontikhonov.timetable_kmp.settings.group.presentation.GroupSettingsViewModel
-import ru.antontikhonov.timetable_kmp.timetable.domain.GroupsRepository
-import ru.antontikhonov.timetable_kmp.timetable.data.repository.GroupsRepositoryImpl
-import ru.antontikhonov.timetable_kmp.timetable.domain.GroupSettingsRepository
-import ru.antontikhonov.timetable_kmp.timetable.data.repository.GroupSettingsRepositoryImpl
+import ru.antontikhonov.timetable_kmp.data.api.TimetableApiService
+import ru.antontikhonov.timetable_kmp.data.api.KtorTimetableApiService
+import ru.antontikhonov.timetable_kmp.domain.repositores.TimetableRepository
+import ru.antontikhonov.timetable_kmp.data.repository.TimetableRepositoryImpl
+import ru.antontikhonov.timetable_kmp.features.timetable.presentation.TimetableViewModel
+import ru.antontikhonov.timetable_kmp.features.settings.group.presentation.GroupSettingsViewModel
+import ru.antontikhonov.timetable_kmp.domain.repositores.GroupsRepository
+import ru.antontikhonov.timetable_kmp.data.repository.GroupsRepositoryImpl
+import ru.antontikhonov.timetable_kmp.domain.repositores.GroupSettingsRepository
+import ru.antontikhonov.timetable_kmp.data.repository.GroupSettingsRepositoryImpl
 
 expect val platformModule: Module
 

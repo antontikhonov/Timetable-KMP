@@ -30,11 +30,11 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import ru.antontikhonov.timetable_kmp.resources.Colors
-import ru.antontikhonov.timetable_kmp.settings.group.presentation.GroupSettingsViewModel
-import ru.antontikhonov.timetable_kmp.settings.group.presentation.compose.GroupSettingScreenRoot
-import ru.antontikhonov.timetable_kmp.settings.main.presentation.compose.MainSettingScreenRoot
-import ru.antontikhonov.timetable_kmp.timetable.presentation.TimetableViewModel
-import ru.antontikhonov.timetable_kmp.timetable.presentation.compose.TimetableScreenRoot
+import ru.antontikhonov.timetable_kmp.features.settings.group.presentation.GroupSettingsViewModel
+import ru.antontikhonov.timetable_kmp.features.settings.group.presentation.compose.GroupSettingScreenRoot
+import ru.antontikhonov.timetable_kmp.features.settings.main.presentation.compose.MainSettingScreenRoot
+import ru.antontikhonov.timetable_kmp.features.timetable.presentation.TimetableViewModel
+import ru.antontikhonov.timetable_kmp.features.timetable.presentation.compose.TimetableScreenRoot
 import timetable_kmp.composeapp.generated.resources.Res
 import timetable_kmp.composeapp.generated.resources.alina
 import timetable_kmp.composeapp.generated.resources.settings
