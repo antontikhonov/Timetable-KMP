@@ -22,13 +22,18 @@ import timetable_kmp.composeapp.generated.resources.settings
 @Composable
 internal fun MainSettingScreenRoot(
     onChangeGroupClick: () -> Unit,
+    onChangeThemeClick: () -> Unit,
 ) {
-    MainSettingScreen(onChangeGroupClick = onChangeGroupClick)
+    MainSettingScreen(
+        onChangeGroupClick = onChangeGroupClick,
+        onChangeThemeClick = onChangeThemeClick,
+    )
 }
 
 @Composable
 private fun MainSettingScreen(
     onChangeGroupClick: () -> Unit,
+    onChangeThemeClick: () -> Unit,
 ) {
     Column {
         Text(
@@ -50,6 +55,7 @@ private fun MainSettingScreen(
             iconResource = Res.drawable.ic_wallpaper,
             text = stringResource(Res.string.choice_theme_button),
             modifier = Modifier.padding(horizontal = 16.dp),
+            onClick = onChangeThemeClick,
         )
     }
 }

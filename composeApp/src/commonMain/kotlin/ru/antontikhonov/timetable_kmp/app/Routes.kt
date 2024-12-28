@@ -15,4 +15,7 @@ sealed interface Route {
 
     @Serializable
     data object GroupSettings: Route
+
+    @Serializable
+    data object ThemeSettings: Route
 }
