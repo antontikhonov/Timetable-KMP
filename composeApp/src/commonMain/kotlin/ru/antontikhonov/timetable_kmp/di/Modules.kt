@@ -17,6 +17,9 @@ import ru.antontikhonov.timetable_kmp.domain.repositores.GroupsRepository
 import ru.antontikhonov.timetable_kmp.data.repository.GroupsRepositoryImpl
 import ru.antontikhonov.timetable_kmp.domain.repositores.GroupSettingsRepository
 import ru.antontikhonov.timetable_kmp.data.repository.GroupSettingsRepositoryImpl
+import ru.antontikhonov.timetable_kmp.data.repository.ThemesRepositoryImpl
+import ru.antontikhonov.timetable_kmp.domain.repositores.ThemesRepository
+import ru.antontikhonov.timetable_kmp.features.settings.theme.ThemeSettingsViewModel
 
 expect val platformModule: Module
 
@@ -27,7 +30,9 @@ val sharedModule = module {
     singleOf(::TimetableRepositoryImpl).bind<TimetableRepository>()
     singleOf(::GroupsRepositoryImpl).bind<GroupsRepository>()
     singleOf(::GroupSettingsRepositoryImpl).bind<GroupSettingsRepository>()
+    singleOf(::ThemesRepositoryImpl).bind<ThemesRepository>()
 
     viewModelOf(::TimetableViewModel)
     viewModelOf(::GroupSettingsViewModel)
+    viewModelOf(::ThemeSettingsViewModel)
 }

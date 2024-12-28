@@ -93,6 +93,8 @@ kotlin {
             implementation(libs.jetbrains.compose.navigation)
 
             implementation(libs.multiplatform.settings)
+
+            implementation(libs.bundles.coil)
         }
         nativeMain.dependencies {
             implementation(libs.ktor.client.darwin)

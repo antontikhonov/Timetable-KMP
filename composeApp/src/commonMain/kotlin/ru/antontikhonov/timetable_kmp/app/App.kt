@@ -33,6 +33,8 @@ import ru.antontikhonov.timetable_kmp.resources.Colors
 import ru.antontikhonov.timetable_kmp.features.settings.group.presentation.GroupSettingsViewModel
 import ru.antontikhonov.timetable_kmp.features.settings.group.presentation.compose.GroupSettingScreenRoot
 import ru.antontikhonov.timetable_kmp.features.settings.main.presentation.compose.MainSettingScreenRoot
+import ru.antontikhonov.timetable_kmp.features.settings.theme.ThemeSettingsViewModel
+import ru.antontikhonov.timetable_kmp.features.settings.theme.compose.ThemeSettingScreenRoot
 import ru.antontikhonov.timetable_kmp.features.timetable.presentation.TimetableViewModel
 import ru.antontikhonov.timetable_kmp.features.timetable.presentation.compose.TimetableScreenRoot
 import timetable_kmp.composeapp.generated.resources.Res
@@ -105,12 +107,23 @@ fun App() {
                                 MainSettingScreenRoot(
                                     onChangeGroupClick = {
                                         navController.navigate(Route.GroupSettings)
-                                    }
+                                    },
+                                    onChangeThemeClick = {
+                                        navController.navigate(Route.ThemeSettings)
+                                    },
                                 )
                             }
                             composable<Route.GroupSettings> {
                                 GroupSettingScreenRoot(
                                     viewModel = koinViewModel<GroupSettingsViewModel>(),
+                                    onBackClick = {
+                                        navController.popBackStack()
+                                    },
+                                )
+                            }
+                            composable<Route.ThemeSettings> {
+                                ThemeSettingScreenRoot(
+                                    viewModel = koinViewModel<ThemeSettingsViewModel>(),
                                     onBackClick = {
                                         navController.popBackStack()
                                     },
