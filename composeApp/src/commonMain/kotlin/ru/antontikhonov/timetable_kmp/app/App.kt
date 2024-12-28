@@ -89,6 +89,7 @@ fun App() {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
+                        .background(Colors.BASE_BLACK_TRANSPARENT)
                         .padding(paddingValues),
                 ) {
                     NavHost(
