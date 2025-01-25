@@ -10,7 +10,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import org.jetbrains.compose.resources.stringResource
+import ru.antontikhonov.timetable_kmp.app.Route
 import ru.antontikhonov.timetable_kmp.resources.Colors
 import timetable_kmp.composeapp.generated.resources.Res
 import timetable_kmp.composeapp.generated.resources.choice_group_button
@@ -21,12 +23,11 @@ import timetable_kmp.composeapp.generated.resources.settings
 
 @Composable
 internal fun MainSettingScreenRoot(
-    onChangeGroupClick: () -> Unit,
-    onChangeThemeClick: () -> Unit,
+    navController: NavController,
 ) {
     MainSettingScreen(
-        onChangeGroupClick = onChangeGroupClick,
-        onChangeThemeClick = onChangeThemeClick,
+        onChangeGroupClick = { navController.navigate(Route.GroupSettings) },
+        onChangeThemeClick = { navController.navigate(Route.ThemeSettings) },
     )
 }
 

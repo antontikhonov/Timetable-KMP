@@ -28,7 +28,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import org.jetbrains.compose.resources.stringResource
+import ru.antontikhonov.timetable_kmp.app.Route
 import ru.antontikhonov.timetable_kmp.features.settings.group.presentation.GroupSettingsAction
 import ru.antontikhonov.timetable_kmp.features.settings.group.presentation.GroupSettingsState
 import ru.antontikhonov.timetable_kmp.features.settings.group.presentation.GroupSettingsViewModel
@@ -39,7 +41,7 @@ import timetable_kmp.composeapp.generated.resources.choice_group_button
 @Composable
 internal fun GroupSettingScreenRoot(
     viewModel: GroupSettingsViewModel,
-    onBackClick: () -> Unit,
+    navController: NavController,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -48,7 +50,7 @@ internal fun GroupSettingScreenRoot(
         onAction = { action ->
             viewModel.onAction(action)
         },
-        onBackClick = onBackClick,
+        navController = navController,
     )
 }
 
@@ -56,7 +58,7 @@ internal fun GroupSettingScreenRoot(
 private fun GroupSettingScreenRoot(
     state: GroupSettingsState,
     onAction: (GroupSettingsAction) -> Unit,
-    onBackClick: () -> Unit,
+    navController: NavController,
 ) {
     Column {
         TopAppBar(
@@ -72,7 +74,7 @@ private fun GroupSettingScreenRoot(
                 .statusBarsPadding(),
             navigationIcon = {
                 IconButton(
-                    onClick = { onBackClick() }) {
+                    onClick = { navController.popBackStack() }) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = null,
@@ -108,10 +110,11 @@ private fun GroupSettingScreenRoot(
                         .background(Colors.BLACK_TRANSPARENT)
                         .clickable {
                             onAction(GroupSettingsAction.OnGroupSelect(group))
+                            navController.navigate(Route.Timetable)
                         }
                         .padding(16.dp),
                     color = Color.White,
-                    text = group
+                    text = group,
                 )
             }
             item {
