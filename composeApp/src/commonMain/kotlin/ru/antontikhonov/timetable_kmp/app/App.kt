@@ -14,6 +14,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,6 +25,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import org.jetbrains.compose.resources.painterResource
@@ -46,6 +48,17 @@ import timetable_kmp.composeapp.generated.resources.timetable
 fun App() {
     var selectedTab by remember { mutableStateOf(0) }
     val navController = rememberNavController()
+    val currentBackStack by navController.currentBackStackEntryAsState()
+
+    LaunchedEffect(currentBackStack) {
+        val currentRoute = currentBackStack?.destination?.route
+        selectedTab = if (Route.Timetable::class.simpleName.toString() in currentRoute.orEmpty()) {
+            0
+        } else {
+            selectedTab
+        }
+    }
+
     MaterialTheme {
         Scaffold(
             backgroundColor = Color.Transparent,
@@ -105,21 +118,12 @@ fun App() {
                                 )
                             }
                             composable<Route.MainSettings> {
-                                MainSettingScreenRoot(
-                                    onChangeGroupClick = {
-                                        navController.navigate(Route.GroupSettings)
-                                    },
-                                    onChangeThemeClick = {
-                                        navController.navigate(Route.ThemeSettings)
-                                    },
-                                )
+                                MainSettingScreenRoot(navController)
                             }
                             composable<Route.GroupSettings> {
                                 GroupSettingScreenRoot(
                                     viewModel = koinViewModel<GroupSettingsViewModel>(),
-                                    onBackClick = {
-                                        navController.popBackStack()
-                                    },
+                                    navController = navController,
                                 )
                             }
                             composable<Route.ThemeSettings> {
