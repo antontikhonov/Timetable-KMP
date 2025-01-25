@@ -88,13 +88,11 @@ kotlin {
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.koin.core)
 
-            implementation(libs.bundles.ktor)
-
             implementation(libs.jetbrains.compose.navigation)
 
-            implementation(libs.multiplatform.settings)
-
             implementation(libs.bundles.coil)
+            implementation(libs.bundles.ktor)
+            implementation(libs.bundles.multiplatform.settings)
         }
         nativeMain.dependencies {
             implementation(libs.ktor.client.darwin)

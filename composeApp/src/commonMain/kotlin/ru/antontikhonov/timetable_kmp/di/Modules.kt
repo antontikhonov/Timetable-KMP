@@ -1,5 +1,6 @@
 package ru.antontikhonov.timetable_kmp.di
 
+import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.Settings
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
@@ -17,22 +18,28 @@ import ru.antontikhonov.timetable_kmp.domain.repositores.GroupsRepository
 import ru.antontikhonov.timetable_kmp.data.repository.GroupsRepositoryImpl
 import ru.antontikhonov.timetable_kmp.domain.repositores.GroupSettingsRepository
 import ru.antontikhonov.timetable_kmp.data.repository.GroupSettingsRepositoryImpl
+import ru.antontikhonov.timetable_kmp.data.repository.ThemeSettingsRepositoryImpl
 import ru.antontikhonov.timetable_kmp.data.repository.ThemesRepositoryImpl
+import ru.antontikhonov.timetable_kmp.domain.repositores.ThemeSettingsRepository
 import ru.antontikhonov.timetable_kmp.domain.repositores.ThemesRepository
 import ru.antontikhonov.timetable_kmp.features.settings.theme.ThemeSettingsViewModel
+import ru.antontikhonov.timetable_kmp.features.background.BackgroundViewModel
 
 expect val platformModule: Module
 
 val sharedModule = module {
     single { Settings() }
     single { HttpClientFactory.create(get()) }
+    single<ObservableSettings> { Settings() as ObservableSettings }
     singleOf(::KtorTimetableApiService).bind<TimetableApiService>()
     singleOf(::TimetableRepositoryImpl).bind<TimetableRepository>()
     singleOf(::GroupsRepositoryImpl).bind<GroupsRepository>()
     singleOf(::GroupSettingsRepositoryImpl).bind<GroupSettingsRepository>()
+    singleOf(::ThemeSettingsRepositoryImpl).bind<ThemeSettingsRepository>()
     singleOf(::ThemesRepositoryImpl).bind<ThemesRepository>()
 
     viewModelOf(::TimetableViewModel)
     viewModelOf(::GroupSettingsViewModel)
     viewModelOf(::ThemeSettingsViewModel)
+    viewModelOf(::BackgroundViewModel)
 }
