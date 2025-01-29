@@ -54,7 +54,7 @@ ktor-client-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktor" }
 jetbrains-compose-navigation = { group = "org.jetbrains.androidx.navigation", name = "navigation-compose", version.ref= "navigationCompose"}
 
 multiplatform-settings = { group = "com.russhwolf", name = "multiplatform-settings-no-arg", version.ref= "settings"}
-multiplatform-settings-coroutines = { group = "com.russhwolf", name = "multiplatform-settings-coroutines", version.ref= "settings"}
+multiplatform-settings-make-observable = { group = "com.russhwolf", name = "multiplatform-settings-make-observable", version.ref= "settings"}
 
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil3" }
 coil-compose-core = { module = "io.coil-kt.coil3:coil-compose-core", version.ref = "coil3" }
@@ -85,5 +85,5 @@ coil = [
 ]
 multiplatform-settings = [
     "multiplatform-settings",
-    "multiplatform-settings-coroutines"
+    "multiplatform-settings-make-observable"
 ]

@@ -23,6 +23,7 @@ fun BackgroundImage(
     val painter = state?.let { url ->
         rememberAsyncImagePainter(
             model = url,
+//            model = "https://corsproxy.io/?url=$url",
             fallback = painterResource(Res.drawable.alina),
             placeholder = ColorPainter(Color.Black)
         )

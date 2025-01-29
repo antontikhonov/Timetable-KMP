@@ -103,6 +103,7 @@ private fun ThemeSettingScreen(
                     }
                     val painter = rememberAsyncImagePainter(
                         model = themeItem.url,
+//                        model = "https://corsproxy.io/?url=${themeItem.url}",
                         onSuccess = {
                             imageLoadResult =
                                 if (it.painter.intrinsicSize.width > 1 && it.painter.intrinsicSize.height > 1) {

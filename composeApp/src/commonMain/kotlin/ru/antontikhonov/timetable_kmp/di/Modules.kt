@@ -1,7 +1,9 @@
 package ru.antontikhonov.timetable_kmp.di
 
+import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.Settings
+import com.russhwolf.settings.observable.makeObservable
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModelOf
@@ -27,10 +29,11 @@ import ru.antontikhonov.timetable_kmp.features.background.BackgroundViewModel
 
 expect val platformModule: Module
 
+@OptIn(ExperimentalSettingsApi::class)
 val sharedModule = module {
     single { Settings() }
     single { HttpClientFactory.create(get()) }
-    single<ObservableSettings> { Settings() as ObservableSettings }
+    single<ObservableSettings> { get<Settings>().makeObservable() }
     singleOf(::KtorTimetableApiService).bind<TimetableApiService>()
     singleOf(::TimetableRepositoryImpl).bind<TimetableRepository>()
     singleOf(::GroupsRepositoryImpl).bind<GroupsRepository>()
