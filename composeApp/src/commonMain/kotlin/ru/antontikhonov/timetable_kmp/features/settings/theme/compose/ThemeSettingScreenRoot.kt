@@ -2,6 +2,7 @@ package ru.antontikhonov.timetable_kmp.features.settings.theme.compose
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -35,6 +36,7 @@ import coil3.compose.rememberAsyncImagePainter
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import ru.antontikhonov.timetable_kmp.features.settings.theme.ThemeSettingState
+import ru.antontikhonov.timetable_kmp.features.settings.theme.ThemeSettingsAction
 import ru.antontikhonov.timetable_kmp.features.settings.theme.ThemeSettingsViewModel
 import ru.antontikhonov.timetable_kmp.resources.Colors
 import timetable_kmp.composeapp.generated.resources.Res
@@ -50,6 +52,9 @@ fun ThemeSettingScreenRoot(
 
     ThemeSettingScreen(
         state = state,
+        onAction = { action ->
+            viewModel.onAction(action)
+        },
         onBackClick = onBackClick,
     )
 }
@@ -57,6 +62,7 @@ fun ThemeSettingScreenRoot(
 @Composable
 private fun ThemeSettingScreen(
     state: ThemeSettingState,
+    onAction: (ThemeSettingsAction) -> Unit,
     onBackClick: () -> Unit,
 ) {
     Column {
@@ -97,6 +103,7 @@ private fun ThemeSettingScreen(
                     }
                     val painter = rememberAsyncImagePainter(
                         model = themeItem.url,
+//                        model = "https://corsproxy.io/?url=${themeItem.url}",
                         onSuccess = {
                             imageLoadResult =
                                 if (it.painter.intrinsicSize.width > 1 && it.painter.intrinsicSize.height > 1) {
@@ -113,7 +120,7 @@ private fun ThemeSettingScreen(
                     when (val result = imageLoadResult) {
                         null -> CircularProgressIndicator()
                         else -> {
-                            Image (
+                            Image(
                                 painter = if (result.isSuccess) {
                                     painter
                                 } else {
@@ -126,6 +133,9 @@ private fun ThemeSettingScreen(
                                     ContentScale.Fit
                                 },
                                 modifier = Modifier
+                                    .clickable {
+                                        onAction(ThemeSettingsAction.OnThemeSelect(themeItem.url))
+                                    }
                                     .aspectRatio(0.65f, matchHeightConstraintsFirst = true),
                             )
                         }

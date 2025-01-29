@@ -1,6 +1,5 @@
 package ru.antontikhonov.timetable_kmp.app
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,16 +20,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
+import ru.antontikhonov.timetable_kmp.features.background.BackgroundViewModel
+import ru.antontikhonov.timetable_kmp.features.background.compose.BackgroundImage
 import ru.antontikhonov.timetable_kmp.resources.Colors
 import ru.antontikhonov.timetable_kmp.features.settings.group.presentation.GroupSettingsViewModel
 import ru.antontikhonov.timetable_kmp.features.settings.group.presentation.compose.GroupSettingScreenRoot
@@ -40,7 +39,6 @@ import ru.antontikhonov.timetable_kmp.features.settings.theme.compose.ThemeSetti
 import ru.antontikhonov.timetable_kmp.features.timetable.presentation.TimetableViewModel
 import ru.antontikhonov.timetable_kmp.features.timetable.presentation.compose.TimetableScreenRoot
 import timetable_kmp.composeapp.generated.resources.Res
-import timetable_kmp.composeapp.generated.resources.alina
 import timetable_kmp.composeapp.generated.resources.settings
 import timetable_kmp.composeapp.generated.resources.timetable
 
@@ -93,10 +91,8 @@ fun App() {
             }
         ) { paddingValues ->
             Box(modifier = Modifier.fillMaxSize()) {
-                Image(
-                    painter = painterResource(resource = Res.drawable.alina),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
+                BackgroundImage(
+                    viewModel = koinViewModel<BackgroundViewModel>(),
                     modifier = Modifier.matchParentSize(),
                 )
                 Box(
