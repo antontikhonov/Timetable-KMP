@@ -42,10 +42,12 @@ class ThemeSettingsViewModel(
                 _state.update {
                     it.copy(
                         themes = themes,
+                        isLoading = false,
+                        errorMessage = null,
                     )
                 }
-            }.onError {
-                // todo
+            }.onError { error ->
+                _state.update { it.copy(isLoading = false, errorMessage = error) }
             }
     }
 }
