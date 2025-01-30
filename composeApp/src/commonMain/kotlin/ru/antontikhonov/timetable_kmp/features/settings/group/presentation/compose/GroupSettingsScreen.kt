@@ -31,6 +31,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import org.jetbrains.compose.resources.stringResource
 import ru.antontikhonov.timetable_kmp.app.Route
+import ru.antontikhonov.timetable_kmp.features.commoncompose.ErrorTile
+import ru.antontikhonov.timetable_kmp.features.commoncompose.LoadingTile
 import ru.antontikhonov.timetable_kmp.features.settings.group.presentation.GroupSettingsAction
 import ru.antontikhonov.timetable_kmp.features.settings.group.presentation.GroupSettingsState
 import ru.antontikhonov.timetable_kmp.features.settings.group.presentation.GroupSettingsViewModel
@@ -94,31 +96,37 @@ private fun GroupSettingScreenRoot(
 
             color = Colors.DIRTY_YELLOW,
         )
-        LazyColumn(
-            modifier = Modifier
-                .padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.Top),
-        ) {
-            item {
-                Spacer(modifier = Modifier.height(8.dp))
-            }
-            items(state.filteredGroups) { group ->
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(25.dp))
-                        .background(Colors.BLACK_TRANSPARENT)
-                        .clickable {
-                            onAction(GroupSettingsAction.OnGroupSelect(group))
-                            navController.navigate(Route.Timetable)
-                        }
-                        .padding(16.dp),
-                    color = Color.White,
-                    text = group,
-                )
-            }
-            item {
-                Spacer(modifier = Modifier.height(8.dp))
+        if (state.isLoading) {
+            LoadingTile()
+        } else if (state.errorMessage != null) {
+            ErrorTile(errorMessage = state.errorMessage.name)
+        } else {
+            LazyColumn(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.Top),
+            ) {
+                item {
+                    Spacer(modifier = Modifier.height(8.dp))
+                }
+                items(state.filteredGroups) { group ->
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(25.dp))
+                            .background(Colors.BLACK_TRANSPARENT)
+                            .clickable {
+                                onAction(GroupSettingsAction.OnGroupSelect(group))
+                                navController.navigate(Route.Timetable)
+                            }
+                            .padding(16.dp),
+                        color = Color.White,
+                        text = group,
+                    )
+                }
+                item {
+                    Spacer(modifier = Modifier.height(8.dp))
+                }
             }
         }
     }

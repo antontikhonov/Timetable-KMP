@@ -1,17 +1,13 @@
 package ru.antontikhonov.timetable_kmp.features.timetable.presentation.compose
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
 import androidx.compose.material.Text
@@ -20,19 +16,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
-import ru.antontikhonov.timetable_kmp.resources.Colors
+import ru.antontikhonov.timetable_kmp.features.commoncompose.ErrorTile
+import ru.antontikhonov.timetable_kmp.features.commoncompose.LoadingTile
 import ru.antontikhonov.timetable_kmp.features.timetable.presentation.TimetableState
 import ru.antontikhonov.timetable_kmp.features.timetable.presentation.TimetableViewModel
+import ru.antontikhonov.timetable_kmp.resources.Colors
 import timetable_kmp.composeapp.generated.resources.Res
-import timetable_kmp.composeapp.generated.resources.error_message
 import timetable_kmp.composeapp.generated.resources.friday
 import timetable_kmp.composeapp.generated.resources.monday
 import timetable_kmp.composeapp.generated.resources.saturday
@@ -111,31 +106,9 @@ internal fun TimetableScreen(state: TimetableState) {
             verticalAlignment = Alignment.Top,
         ) { page ->
             if (state.isLoading) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.size(25.dp),
-                        strokeWidth = 2.dp,
-                        color = Color.White,
-                    )
-                }
+                LoadingTile()
             } else if (state.errorMessage != null) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    Text(
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(25.dp))
-                            .background(Colors.BLACK_TRANSPARENT)
-                            .padding(16.dp),
-                        text = stringResource(Res.string.error_message, state.errorMessage.name),
-                        color = Color.Red,
-                        textAlign = TextAlign.Center,
-                    )
-                }
+                ErrorTile(errorMessage = state.errorMessage.name)
             } else {
                 DayTabItem(
                     dayEntity = state.days.getOrNull(page),
