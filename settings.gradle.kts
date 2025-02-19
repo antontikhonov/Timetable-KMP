@@ -60,12 +60,18 @@ dependencyResolutionManagement {
             }
             filter { includeGroup("com.yarnpkg") }
         }
+        println("OS Name: ${System.getProperty("os.name")}")
+        println("OS Arch: ${System.getProperty("os.arch")}")
         exclusiveContent {
             forRepository {
                 ivy("https://github.com/WebAssembly/binaryen/releases/download") {
                     name = "Binaryen Distributions at $url"
                     patternLayout {
-                        if (System.getProperty("os.name").contains("Linux") && System.getProperty("os.arch").contains("aarch64")) {
+                        if (System.getProperty("os.name").contains("Linux") &&
+                            (System.getProperty("os.arch")
+                                .contains("aarch64") || System.getProperty("os.arch")
+                                .contains("amd64"))
+                        ) {
                             artifact("version_[revision]/[module]-version_[revision]-aarch64-linux.[ext]")
                         } else {
                             artifact("version_[revision]/[module]-version_[revision]-[classifier].[ext]")
