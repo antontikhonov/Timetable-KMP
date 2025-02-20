@@ -67,12 +67,14 @@ dependencyResolutionManagement {
                 ivy("https://github.com/WebAssembly/binaryen/releases/download") {
                     name = "Binaryen Distributions at $url"
                     patternLayout {
-                        if (System.getProperty("os.name").contains("Linux") &&
-                            (System.getProperty("os.arch")
-                                .contains("aarch64") || System.getProperty("os.arch")
-                                .contains("amd64"))
+                        if (System.getProperty("os.name").contains("Linux")
                         ) {
-                            artifact("version_[revision]/[module]-version_[revision]-aarch64-linux.[ext]")
+                            if (System.getProperty("os.arch").contains("aarch64")) {
+                                artifact("version_[revision]/[module]-version_[revision]-aarch64-linux.[ext]")
+                            } else {
+                                // для amd64 используем x86_64-linux
+                                artifact("version_[revision]/[module]-version_[revision]-x86_64-linux.[ext]")
+                            }
                         } else {
                             artifact("version_[revision]/[module]-version_[revision]-[classifier].[ext]")
                         }
