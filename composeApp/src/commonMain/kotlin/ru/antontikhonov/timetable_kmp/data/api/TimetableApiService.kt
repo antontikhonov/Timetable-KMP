@@ -9,7 +9,7 @@ import ru.antontikhonov.timetable_kmp.data.api.entities.GroupsApiResponse
 import ru.antontikhonov.timetable_kmp.data.api.entities.ThemesApiResponse
 import ru.antontikhonov.timetable_kmp.data.api.entities.TimetableApiResponse
 
-private const val BASE_URL = "https://antontikhonov.ru/timetable"
+private const val BASE_URL = "https://istu18.ru/api"
 
 interface TimetableApiService {
 

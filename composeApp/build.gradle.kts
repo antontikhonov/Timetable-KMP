@@ -94,6 +94,8 @@ kotlin {
             implementation(libs.bundles.coil)
             implementation(libs.bundles.ktor)
             implementation(libs.bundles.multiplatform.settings)
+
+            implementation(libs.kotlinx.datetime)
         }
         nativeMain.dependencies {
             implementation(libs.ktor.client.darwin)

@@ -17,7 +17,11 @@ fun TimetableApiResponse.toDomain(): TimetableEntity {
 private fun TimetableDayApi.toDomain(): DayEntity {
     return DayEntity(
         day = this.day,
-        classes = this.classes.map { it.toDomain() },
+        classes = this.classes
+            .map { it.toDomain() }
+            .filter { pairClass ->
+                pairClass.odd != null || pairClass.even != null
+            },
     )
 }
 

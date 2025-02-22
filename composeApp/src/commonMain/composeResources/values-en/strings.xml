@@ -16,6 +16,14 @@
     <string name="thursday">THU</string>
     <string name="friday">FRI</string>
     <string name="saturday">SAT</string>
+
+    <string name="small_monday">Mon</string>
+    <string name="small_tuesday">Tue</string>
+    <string name="small_wednesday">Wed</string>
+    <string name="small_thursday">Thu</string>
+    <string name="small_friday">Fri</string>
+    <string name="small_saturday">Sat</string>
+
     <string name="choice_group_button">Change group</string>
     <string name="choice_theme_button">Change wallpaper</string>
 

@@ -1,7 +1,9 @@
 package ru.antontikhonov.timetable_kmp.features.timetable.presentation.compose
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -27,6 +29,7 @@ import ru.antontikhonov.timetable_kmp.features.commoncompose.LoadingTile
 import ru.antontikhonov.timetable_kmp.features.timetable.presentation.TimetableState
 import ru.antontikhonov.timetable_kmp.features.timetable.presentation.TimetableViewModel
 import ru.antontikhonov.timetable_kmp.resources.Colors
+import ru.antontikhonov.timetable_kmp.resources.DateConstants
 import timetable_kmp.composeapp.generated.resources.Res
 import timetable_kmp.composeapp.generated.resources.friday
 import timetable_kmp.composeapp.generated.resources.monday
@@ -59,16 +62,28 @@ internal fun TimetableScreen(state: TimetableState) {
     val pagerState = rememberPagerState { tabItems.size }
 
     Column {
-        Text(
-            text = state.numberOfGroup,
-            color = Color.White,
-            fontSize = 20.sp,
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Colors.DARK_BLACK_TRANSPARENT)
                 .statusBarsPadding()
-                .padding(start = 16.dp, top = 8.dp),
-        )
+                .padding(start = 16.dp, top = 8.dp, end = 16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.Top
+        ) {
+            Text(
+                text = state.numberOfGroup,
+                color = Color.White,
+                fontSize = 20.sp,
+            )
+            if (state.currentDate.isNotEmpty()) {
+                Text(
+                    text = stringResource(DateConstants.getSmallMonth(state.currentMonthIndex)) + state.currentDate,
+                    color = Color.White,
+                    fontSize = 10.sp,
+                )
+            }
+        }
         TabRow(
             selectedTabIndex = pagerState.currentPage,
             backgroundColor = Color.Transparent,
