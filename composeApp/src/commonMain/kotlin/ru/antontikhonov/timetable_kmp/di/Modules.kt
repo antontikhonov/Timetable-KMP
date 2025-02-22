@@ -22,10 +22,12 @@ import ru.antontikhonov.timetable_kmp.domain.repositores.GroupSettingsRepository
 import ru.antontikhonov.timetable_kmp.data.repository.GroupSettingsRepositoryImpl
 import ru.antontikhonov.timetable_kmp.data.repository.ThemeSettingsRepositoryImpl
 import ru.antontikhonov.timetable_kmp.data.repository.ThemesRepositoryImpl
+import ru.antontikhonov.timetable_kmp.domain.repositores.CurrentTimeProvider
 import ru.antontikhonov.timetable_kmp.domain.repositores.ThemeSettingsRepository
 import ru.antontikhonov.timetable_kmp.domain.repositores.ThemesRepository
 import ru.antontikhonov.timetable_kmp.features.settings.theme.ThemeSettingsViewModel
 import ru.antontikhonov.timetable_kmp.features.background.BackgroundViewModel
+import ru.antontikhonov.timetable_kmp.data.repository.CurrentTimeProviderImpl
 
 expect val platformModule: Module
 
@@ -40,6 +42,7 @@ val sharedModule = module {
     singleOf(::GroupSettingsRepositoryImpl).bind<GroupSettingsRepository>()
     singleOf(::ThemeSettingsRepositoryImpl).bind<ThemeSettingsRepository>()
     singleOf(::ThemesRepositoryImpl).bind<ThemesRepository>()
+    singleOf(::CurrentTimeProviderImpl).bind<CurrentTimeProvider>()
 
     viewModelOf(::TimetableViewModel)
     viewModelOf(::GroupSettingsViewModel)

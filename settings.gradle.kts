@@ -60,8 +60,6 @@ dependencyResolutionManagement {
             }
             filter { includeGroup("com.yarnpkg") }
         }
-        println("OS Name: ${System.getProperty("os.name")}")
-        println("OS Arch: ${System.getProperty("os.arch")}")
         exclusiveContent {
             forRepository {
                 ivy("https://github.com/WebAssembly/binaryen/releases/download") {

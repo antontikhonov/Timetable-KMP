@@ -9,12 +9,14 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import ru.antontikhonov.timetable_kmp.core.onError
 import ru.antontikhonov.timetable_kmp.core.onSuccess
+import ru.antontikhonov.timetable_kmp.domain.repositores.CurrentTimeProvider
 import ru.antontikhonov.timetable_kmp.domain.repositores.GroupSettingsRepository
 import ru.antontikhonov.timetable_kmp.domain.repositores.TimetableRepository
 
 class TimetableViewModel(
     private val timetableRepository: TimetableRepository,
     private val groupSettingsRepository: GroupSettingsRepository,
+    private val currentTimeProvider: CurrentTimeProvider,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(TimetableState())
@@ -22,6 +24,7 @@ class TimetableViewModel(
         .onStart {
             val group = loadGroup()
             loadTimetable(group)
+            updateCurrentDate()
         }.stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5000L),
@@ -50,5 +53,18 @@ class TimetableViewModel(
             .onError { error ->
                 _state.update { it.copy(isLoading = false, errorMessage = error) }
             }
+    }
+
+    private fun updateCurrentDate() {
+        val localDate = currentTimeProvider()
+
+        val currentMonthIndex = localDate.dayOfWeek.ordinal
+        val day = localDate.dayOfMonth.toString().padStart(2, '0') // "01", "23"
+        val month = localDate.monthNumber.toString().padStart(2, '0') // "01", "12"
+        val year = localDate.year
+
+        val formattedDate =  ", $day.$month.$year"
+
+        _state.update { it.copy(currentDate = formattedDate, currentMonthIndex = currentMonthIndex) }
     }
 }

@@ -16,6 +16,14 @@
     <string name="thursday">ЧТ</string>
     <string name="friday">ПТ</string>
     <string name="saturday">СБ</string>
+
+    <string name="small_monday">пн</string>
+    <string name="small_tuesday">вт</string>
+    <string name="small_wednesday">ср</string>
+    <string name="small_thursday">чт</string>
+    <string name="small_friday">пт</string>
+    <string name="small_saturday">сб</string>
+
     <string name="choice_group_button">Выбор группы</string>
     <string name="choice_theme_button">Выбор фона</string>
 
