@@ -8,7 +8,7 @@ internal class GroupSettingsRepositoryImpl(
 ) : GroupSettingsRepository {
 
     override fun getGroupSettings(): String {
-        return settings.getString(key = GROUP_SETTINGS_KEY, defaultValue = "М24-500-6")
+        return settings.getString(key = GROUP_SETTINGS_KEY, defaultValue = "Б24-500-6")
     }
 
     override fun putGroupSettings(value: String) {
